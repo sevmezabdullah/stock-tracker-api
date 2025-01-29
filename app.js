@@ -17,8 +17,11 @@ const app = express();
 
 const PORT = process.env.PORT || 4001
 app.use(express.json());
+
+
+// white list kullanımı
 app.use(cors({
-    origin: '*'
+    origin: '*',
 }))
 
 
@@ -29,6 +32,7 @@ app.use('/api/health-check', (req, res) => {
     })
 })
 
+// DTO : Data Transfer Object
 app.use('/api/product', productRouter)
 app.use('/api/auth', userRouter)
 

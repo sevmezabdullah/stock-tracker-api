@@ -27,9 +27,6 @@ async function createProduct(request, response) {
             message: "Ürün oluşturulamadı"
         })
     }
-
-
-
 }
 
 
