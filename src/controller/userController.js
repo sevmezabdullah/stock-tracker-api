@@ -1,7 +1,8 @@
 
-const User = require('../models/userSchema');
+const { User } = require('../models/userSchema');
 const bcrypt = require('bcrypt');
 const { generateAccessToken } = require('../utils/token');
+const { sendEmail, sendVerificationEmail } = require('../utils/email');
 
 async function login(req, res) {
     const { email, password } = req.body
@@ -21,10 +22,20 @@ async function login(req, res) {
 
 async function register(req, res) {
     const { name, email, password } = req.body
-    const hashedPassword = await bcrypt.hash(password, 10)
-    const user = new User({ name, email, password: hashedPassword })
-    await user.save()
-    return res.status(201).json({ message: "Kullanıcı oluşturuldu" })
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10)
+        const user = new User({ name, email, password: hashedPassword })
+        /* await sendEmail(email, "Hoşgeldiniz", "Hoşgeldiniz, Sisteme kayıt oldunuz,1000000. kişisiniz tebrikler.") */
+        await sendVerificationEmail(email, "Hoşgeldiniz", name, "1234567")
+        // await user.save()
+        return res.status(201).json({ message: "Kullanıcı oluşturuldu" })
+    } catch (error) {
+
+        console.debug("🚀 ~ register ~ error:", error)
+        return res.status(500).json({ message: "Kullanıcı oluşturulamadı" })
+
+    }
+
 }
 
 async function getAllUsers(req, res) {

@@ -1,0 +1,72 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>TaskPeer'e Hoş Geldiniz</title>
+    <style>
+      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } } @keyframes
+      slideIn { from { transform: translateY(20px); opacity: 0; } to {
+      transform: translateY(0); opacity: 1; } } @keyframes pulse { 0% {
+      transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform:
+      scale(1); } } body { font-family: 'Arial', sans-serif; margin: 0; padding:
+      0; background-color: #0a0a1a; color: #ffffff; } .container { max-width:
+      600px; margin: 20px auto; background: linear-gradient(145deg, #1a1a3a 0%,
+      #0a0a1a 100%); border-radius: 20px; overflow: hidden; box-shadow: 0 0 40px
+      rgba(0,100,255,0.2); animation: fadeIn 1s ease-out; } .header {
+      background: linear-gradient(90deg, #2196F3, #00BCD4); padding: 40px 20px;
+      text-align: center; position: relative; overflow: hidden; } .header::after
+      { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.1)
+      50%, transparent 52%); background-size: 200% 200%; animation: pulse 3s
+      infinite; } .logo { width: 120px; height: 120px; margin: 0 auto 20px;
+      background: rgba(255,255,255,0.1); border-radius: 60px; display: flex;
+      align-items: center; justify-content: center; animation: slideIn 1s
+      ease-out; } .logo img { width: 80px; height: 80px; } h1 { color: #ffffff;
+      font-size: 32px; margin: 0; text-transform: uppercase; letter-spacing:
+      2px; animation: slideIn 1s ease-out 0.2s both; } .content { padding: 40px;
+      text-align: center; animation: slideIn 1s ease-out 0.4s both; }
+      .welcome-text { font-size: 18px; color: #B0BEC5; margin-bottom: 30px;
+      line-height: 1.6; } .verify-button { display: inline-block; padding: 15px
+      40px; background: linear-gradient(90deg, #FF4081, #FF6E40); color: white;
+      text-decoration: none; border-radius: 30px; font-weight: bold;
+      text-transform: uppercase; letter-spacing: 1px; margin: 20px 0;
+      transition: all 0.3s ease; animation: pulse 2s infinite; }
+      .verify-button:hover { transform: translateY(-2px); box-shadow: 0 5px 20px
+      rgba(255,64,129,0.4); } .footer { background: rgba(255,255,255,0.05);
+      padding: 20px; text-align: center; font-size: 14px; color: #78909C; }
+      .social-links { margin: 20px 0; } .social-links a { display: inline-block;
+      width: 36px; height: 36px; margin: 0 10px; background:
+      rgba(255,255,255,0.1); border-radius: 50%; line-height: 36px; color:
+      #ffffff; text-decoration: none; transition: all 0.3s ease; } .social-links
+      a:hover { transform: translateY(-3px); background: #2196F3; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="logo">
+          <img src="https://taskpeer.xyz/logo.png" alt="TaskPeer Logo" />
+        </div>
+        <h1>TaskPeer'e Hoş Geldiniz</h1>
+      </div>
+      <div class="content">
+        <p class="welcome-text">Merhaba
+          {{name}},<br />
+          TaskPeer'e katıldığınız için teşekkür ederiz! Hesabınızı
+          aktifleştirmek için lütfen aşağıdaki butona tıklayın.</p>
+        <a href="{{verifyLink}}" class="verify-button">Hesabımı Doğrula</a>
+        <p style="color: #78909C; font-size: 14px;">Bu e-posta size TaskPeer
+          tarafından gönderilmiştir.</p>
+      </div>
+      <div class="footer">
+        <div class="social-links">
+          <a href="#">FB</a>
+          <a href="#">TW</a>
+          <a href="#">IN</a>
+          <a href="#">LI</a>
+        </div>
+        <p>TaskPeer Inc. &copy; 2024<br />
+          İstanbul, Türkiye</p>
+      </div>
+    </div>
+  </body>
+</html>

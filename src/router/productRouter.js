@@ -4,7 +4,7 @@ const { createProduct, getAll, updateProduct, deleteProduct } = require('../cont
 const { authHandler } = require('../middleware/authHandler');
 
 
-productRouter.post('/create', authHandler, createProduct)
+productRouter.post('/create', createProduct)
 productRouter.get('/getAll', authHandler, getAll)
 productRouter.put('/update', authHandler, updateProduct)
 productRouter.delete('/delete/:id', authHandler, deleteProduct)

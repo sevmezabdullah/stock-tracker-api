@@ -3,6 +3,8 @@ const cors = require('cors');
 const productRouter = require('./src/router/productRouter');
 const userRouter = require('./src/router/userRouter');
 
+const { engine } = require('express-handlebars');
+
 require('./src/db/db')
 
 require('dotenv').config()
@@ -17,7 +19,10 @@ const app = express();
 
 const PORT = process.env.PORT || 4001
 app.use(express.json());
-
+app.engine('handlebars', engine({
+    defaultLayout: false
+}));
+app.set('view engine', 'handlebars');
 
 // white list kullanımı
 app.use(cors({
@@ -39,4 +44,8 @@ app.use('/api/auth', userRouter)
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
+// Javascriptte hataları runtime da anlarız.
+// jsDoc : Javascriptteki kodların açıklamalarını yazmak için kullanılır.
+// joi : Validasyon için kullanılır.
 

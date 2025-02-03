@@ -1,5 +1,5 @@
 
-const Product = require('../models/productSchema');
+const { Product, validateProduct } = require('../models/productSchema');
 
 async function createProduct(request, response) {
     const product = request.body;
@@ -10,19 +10,38 @@ async function createProduct(request, response) {
     const color = product.color;
     const weight = Number(product.weight);
     try {
-        const newProduct = new Product({
-            productName,
-            stock,
-            country,
-            expireDate,
-            color,
-            weight
-        });
-        await newProduct.save();
-        return response.status(201).json({
-            message: "Ürün oluşturuldu"
-        });
+
+        const { error, value, warning } = validateProduct(request.body)
+
+        console.debug("🚀 ~ createProduct ~ value:", value)
+
+        console.debug("🚀 ~ createProduct ~ warning:", warning)
+
+        console.debug("🚀 ~ createProduct ~ error:", error)
+
+        if (!error) {
+            const newProduct = new Product({
+                productName,
+                stock,
+                country,
+                expireDate,
+                color,
+                weight
+            });
+            await newProduct.save();
+            return response.status(201).json({
+                message: "Ürün oluşturuldu"
+            });
+        }
+        return response.status(400).json({
+            message: "Ürün oluşturulamadı",
+            error
+        })
+
     } catch (error) {
+
+
+        console.debug("🚀 ~ createProduct ~ error:", error)
         return response.status(500).json({
             message: "Ürün oluşturulamadı"
         })
