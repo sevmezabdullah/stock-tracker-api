@@ -10,6 +10,8 @@ async function login(req, res) {
     if (!user) {
         return res.status(404).json({ message: "Kullanıcı bulunamadı" })
     }
+
+    console.debug("🚀 ~ login ~ user:", user)
     const isMatch = await bcrypt.compare(password, user.password)
     if (!isMatch) {
         return res.status(401).json({ message: "Sifre yanlış" })
@@ -27,7 +29,7 @@ async function register(req, res) {
         const user = new User({ name, email, password: hashedPassword })
         /* await sendEmail(email, "Hoşgeldiniz", "Hoşgeldiniz, Sisteme kayıt oldunuz,1000000. kişisiniz tebrikler.") */
         await sendVerificationEmail(email, "Hoşgeldiniz", name, "1234567")
-        // await user.save()
+        await user.save()
         return res.status(201).json({ message: "Kullanıcı oluşturuldu" })
     } catch (error) {
 

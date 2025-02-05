@@ -13,11 +13,6 @@ async function createProduct(request, response) {
 
         const { error, value, warning } = validateProduct(request.body)
 
-        console.debug("🚀 ~ createProduct ~ value:", value)
-
-        console.debug("🚀 ~ createProduct ~ warning:", warning)
-
-        console.debug("🚀 ~ createProduct ~ error:", error)
 
         if (!error) {
             const newProduct = new Product({
