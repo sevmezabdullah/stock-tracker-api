@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const productRouter = require('./src/router/productRouter');
-const userRouter = require('./src/router/userRouter');
+const productRouter = require('./src/api/product/productRouter');
+const userRouter = require('./src/api/user/userRouter');
 
 const swaggerUI = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
@@ -19,8 +19,6 @@ const app = express();
 // - yeni bir access token almak için kullanılır.
 // access token - geçerlilik süresi çok kısa. endpointlere erişirken kullanılır.
 //- endpointlere erişip veri alışverişinde kullanılır.
-
-
 
 
 const PORT = process.env.PORT || 4001
@@ -124,3 +122,7 @@ app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
 
+// 1. Router Katmanı - API'ların yönlendirildiği yer ve Endpointlerin maplendiği yer.
+// 2. Controller Katmanı - Request ve Responseların handle edildiği yer.
+// 3. Service Katmanı - Business Logic'lerin yazıldığı yer.
+// 4. Repository Katmanı - Database'e erişim sağlayan yer.

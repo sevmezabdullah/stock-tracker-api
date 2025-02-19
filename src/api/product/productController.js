@@ -1,5 +1,6 @@
 
-const { Product, validateProduct } = require('../models/productSchema');
+
+const { createProductService, getAllProductsService, deleteProductService } = require('./productService');
 
 async function createProduct(request, response) {
     const product = request.body;
@@ -10,33 +11,24 @@ async function createProduct(request, response) {
     const color = product.color;
     const weight = Number(product.weight);
     try {
-
-        const { error, value, warning } = validateProduct(request.body)
-
-
-        if (!error) {
-            const newProduct = new Product({
-                productName,
-                stock,
-                country,
-                expireDate,
-                color,
-                weight
-            });
-            await newProduct.save();
-            return response.status(201).json({
-                message: "Ürün oluşturuldu"
-            });
-        }
+        const createdProduct = await createProductService({
+            productName,
+            stock,
+            country,
+            expireDate,
+            color,
+            weight
+        });
+        if (createdProduct) return response.status(201).json({
+            message: "Ürün oluşturuldu",
+            createdProduct
+        })
         return response.status(400).json({
             message: "Ürün oluşturulamadı",
             error
         })
 
     } catch (error) {
-
-
-        console.debug("🚀 ~ createProduct ~ error:", error)
         return response.status(500).json({
             message: "Ürün oluşturulamadı"
         })
@@ -45,8 +37,7 @@ async function createProduct(request, response) {
 
 
 async function getAll(request, response) {
-    const products = await Product.find();
-
+    const products = await getAllProductsService()
     return response.status(200).json({
         products,
         totalCount: products.length
@@ -55,19 +46,15 @@ async function getAll(request, response) {
 
 async function updateProduct(request, response) {
     const product = request.body
-
     try {
-        const result = await Product.findByIdAndUpdate(product._id, {
-            productName: product.productName,
-            stock: product.stock,
-            country: product.country,
-            expireDate: product.expireDate,
-            color: product.color,
-            weight: product.weight
-        }, { new: true });
-        return response.status(201).json({
+        const updatedProduct = await updateProductService(product)
+        if (updatedProduct) return response.status(201).json({
             message: "Ürün güncellendi",
-            result
+            updatedProduct
+        })
+        return response.status(400).json({
+            message: "Ürün güncellenemedi",
+            error
         })
     } catch (error) {
         return response.status(500).json({
@@ -80,10 +67,14 @@ async function updateProduct(request, response) {
 async function deleteProduct(request, response) {
     const id = request.params.id;
     try {
-        const result = await Product.findByIdAndDelete(id);
-        return response.status(200).json({
+        const result = await deleteProductService(id)
+        if (result) return response.status(200).json({
             message: "Ürün silindi",
             result
+        })
+        return response.status(400).json({
+            message: "Ürün silinemedi",
+            error
         })
     } catch (error) {
         return response.status(500).json({

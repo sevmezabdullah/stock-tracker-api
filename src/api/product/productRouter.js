@@ -1,7 +1,7 @@
 const productRouter = require('express').Router();
 
-const { createProduct, getAll, updateProduct, deleteProduct } = require('../controller/productController');
-const { authHandler } = require('../middleware/authHandler');
+const { createProduct, getAll, updateProduct, deleteProduct } = require('./productController');
+const { authHandler } = require('../../middleware/authHandler');
 
 
 

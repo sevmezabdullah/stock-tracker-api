@@ -1,6 +1,6 @@
 const userRouter = require('express').Router();
-const { login, register, getAllUsers, getUserCount } = require('../controller/userController');
-const { authHandler, authorizeHandler } = require('../middleware/authHandler');
+const { login, register, getAllUsers, getUserCount } = require('./userController');
+const { authHandler, authorizeHandler } = require('../../middleware/authHandler');
 
 
 
